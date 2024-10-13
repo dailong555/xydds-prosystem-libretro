@@ -325,6 +325,17 @@ else ifeq ($(platform), miyoo)
 	CFLAGS += -fsigned-char
 	FLAGS += -fomit-frame-pointer -ffast-math -march=armv5te -mtune=arm926ej-s 
 	fpic := -fPIC
+	
+# XYDDS
+else ifeq ($(platform), xydds)
+	TARGET := $(TARGET_NAME)_libretro.so
+   CC = /opt/xydds/usr/bin/arm-linux-gcc
+   AR = /opt/xydds/usr/bin/arm-linux-ar
+	SHARED := -shared -Wl,--no-undefined -Wl,--version-script=link.T
+	CFLAGS += -fsigned-char
+	FLAGS += -fomit-frame-pointer -ffast-math -marm -mfpu=neon-vfpv4 -mfloat-abi=hard
+	FLAGS += -DARM -mcpu=cortex-a7
+	fpic := -fPIC
 
 # Raspberry Pi 1
 else ifeq ($(platform), rpi1)
